@@ -1,0 +1,32 @@
+                    ┌─────────────────────┐
+                    │   User (Browser)    │
+                    │   HTTPS Request     │
+                    └──────────┬──────────┘
+                               │
+                               │ DNS lookup
+                               ▼
+                    ┌─────────────────────┐
+                    │        DNS          │
+                    │ www.foobar.com → LB IP │
+                    └──────────┬──────────┘
+                               │
+                               │ Resolve to LB IP
+                               ▼
+              ┌─────────────────────────────────────┐
+              │      HAProxy Load Balancer          │
+              │   (Round Robin, HTTPS Termination)  │
+              └─────────────┬───────────────────────┘
+                           │
+                           │ Distribute traffic
+                  ┌────────┴────────┐
+                  │                 │
+                  ▼                 ▼
+        ┌─────────────────┐   ┌─────────────────┐
+        │    Server #1    │   │    Server #2    │
+        │ Nginx + App     │   │ Nginx + App     │
+        │ Server + Code   │   │ Server + Code   │
+        │ MySQL PRIMARY   │   │ MySQL REPLICA   │
+        └─────────┬───────┘   └─────────┬───────┘
+                  │                     │
+                  └─────────────────────┘
+                   MySQL binlog replication

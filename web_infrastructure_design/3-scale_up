@@ -1,0 +1,33 @@
+   User (Browser)
+         |
+         v
+       [DNS]
+         |
+         v
+  +-------------------+
+  |   HAProxy LB #1   |
+  |   HAProxy LB #2   |
+  |   (Cluster Mode)  |
+  +-------------------+
+     /           \
+    /             \
+   v               v
++-------+       +-------+
+| Web1  |       | Web2  |
+| Nginx |       | Nginx |
++-------+       +-------+
+    |               |
+    v               v
++-------+       +-------+
+| App1  |       | App2  |
+| Code  |       | Code  |
++-------+       +-------+
+    |               |
+    v               v
++-----------+   +-----------+
+| DB1 MySQL |   | DB2 MySQL |
+| PRIMARY   |   | REPLICA   |
++-----------+   +-----------+
+       |             ^
+       +-------------+
+        MySQL Replication

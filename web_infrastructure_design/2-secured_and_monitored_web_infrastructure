@@ -1,0 +1,28 @@
+   User (Browser)
+         |
+       HTTPS
+         |
+         v
+       [DNS]
+         |
+         v
+   +---------------+
+   |   HAProxy LB  |
+   | SSL Terminate |
+   +---------------+
+      /        \
+     /          \
+    v            v
++---------+   +---------+
+| Server1 |   | Server2 |
+| Nginx   |   | Nginx   |
+| App     |   | App     |
+| Code    |   | Code    |
+| MySQL P |   | MySQL R |
++---------+   +---------+
+      |             ^
+      +-------------+
+       MySQL Replication
+
+   [Firewalls] around servers
+   [Monitoring: ELK / Prometheus]
